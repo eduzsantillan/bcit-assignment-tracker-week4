@@ -2,14 +2,21 @@ import { useState } from "react";
 import styles from "./header.module.css";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { uppercase } from "../../helpers/stringHelpers";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.module.css";
+
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 type childComponentProps = {
-  addItem: (item: string) => void;
+  addItem: (item: string, deadline: Date) => void;
 };
 
 export function Header(props: childComponentProps) {
   const [buttonAvailable, setButtonAvailable] = useState(false);
   const [inputItem, setInputItem] = useState("");
+  const [selectedDay, setSelectedDay] = useState(new Date());
 
   const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
     if (e.currentTarget.value.trim().length > 0) {
@@ -22,7 +29,7 @@ export function Header(props: childComponentProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    props.addItem(inputItem);
+    props.addItem(inputItem, selectedDay);
     setInputItem("");
     setButtonAvailable(false);
   };
@@ -37,6 +44,11 @@ export function Header(props: childComponentProps) {
           type="text"
           onChange={handleInput}
           value={inputItem}
+        />
+        <DatePicker
+          fixedHeight
+          selected={selectedDay}
+          onChange={(date: Date) => setSelectedDay(date)}
         />
         <button
           disabled={!buttonAvailable}

@@ -6,17 +6,19 @@ export type ObjAssignment = {
   title: string;
   isCompleted: boolean;
   index: number;
+  deadline: Date;
 };
 
 function App() {
   const [listAssignments, setListAssignments] = useState<ObjAssignment[]>([]);
   const [indexItem, setIndexItem] = useState(0);
 
-  const addItem = (newItem: string) => {
+  const addItem = (newItem: string, deadline: Date) => {
     const newAssignment = {
       title: newItem,
       isCompleted: false,
       index: indexItem,
+      deadline: deadline,
     };
     setListAssignments((prev) => [...prev, newAssignment]);
     setIndexItem(indexItem + 1);

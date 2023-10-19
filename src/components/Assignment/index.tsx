@@ -2,6 +2,7 @@ import styles from "./assignment.module.css";
 import { TbTrash } from "react-icons/tb";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { ObjAssignment } from "./../../App";
+import Deadline from "../Deadline";
 
 type ChildProps = {
   assignment: ObjAssignment;
@@ -28,6 +29,7 @@ export function Assignment(props: ChildProps) {
       >
         {props.assignment.title}
       </p>
+      <Deadline deadline={props.assignment.deadline} />
 
       <button
         className={styles.deleteButton}
